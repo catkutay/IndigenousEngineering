@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>Nearby</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="presentFilter()">
+        <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-searchbar color="primary"
+                   [(ngModel)]="queryText"
+                   (ionInput)="updateSchedule()"
+                   placeholder="Search">
+    </ion-searchbar>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-buttons>
+    <button ion-button (click)="addPin()">
+      <ion-icon name="add"></ion-icon> Add Generic Pin
+    </button>
+  </ion-buttons>
+
+  <ion-list>
+    <ion-card *ngFor="let pin of pins | async" class="nearby-card"
+              [ngStyle]="{'background-image':'url(assets/img/Boomerang.png)'}">
+      <div class="card-details">
+        <h2 class="card-title">{{pin.name}}</h2>
+        <span class="card-subtitle">Distance: </span>
+      </div>
+    </ion-card>
+  </ion-list>
+
+  <ion-list-header *ngIf="(pins | async)?.length === 0">
+    No Nearby Engines Found
+  </ion-list-header>
+
+
+
+
+</ion-content>
